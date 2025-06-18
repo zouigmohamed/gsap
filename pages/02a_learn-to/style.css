@@ -1,6 +1,6 @@
 .toast {
-  position: fixed;
-  bottom: -100px;
+  position: absolute;
+  bottom: 20px;
   background: linear-gradient(135deg, #00cec9, #0984e3);
   color: white;
   padding: 1rem 2rem;
