@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 // Select the main floating action button (FAB)
 const fab = document.querySelector(".fab");
 
@@ -18,7 +20,7 @@ fab.addEventListener("click", () => {
 
   if (expanded) {
     // Define arc of expansion: spread over 90 degrees
-    const arcSpan = Math.PI / 1.5; // radians
+    const arcSpan = Math.PI / 0.9; // radians
     const startAngle = Math.PI / 2 + arcSpan / 2; // start at top-center
 
     children.forEach((child, i) => {
@@ -30,10 +32,32 @@ fab.addEventListener("click", () => {
       const y = -Math.sin(angle) * radius;
 
       // 🔜 Animation will go here
+      gsap.to(child, {
+        x: x,
+        y: y,
+        opacity: 1, // Fade in
+        duration: 0.5,
+        rotate: 360,
+        ease: "expo.out(1,0.3)",
+        scale: 1, // Scale to normal size
+        delay: i * 0.1, // Stagger the animation
+        pointerEvents: "auto", // Enable pointer events when expanded
+      });
     });
   } else {
-    children.forEach((child) => {
+    children.forEach((child , i) => {
       // 🔜 Collapse animation will go here
+      gsap.to(child, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "expo.in(1,0.3)",
+        opacity: 0, // Fade out
+        scale: 0.5, // Scale down
+        rotate: 0,
+        pointerEvents: "none", // Disable pointer events while collapsed
+        delay: -i * 0.1,
+      });
     });
   }
 });
